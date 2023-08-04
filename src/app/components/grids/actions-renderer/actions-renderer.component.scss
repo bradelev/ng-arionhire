@@ -1,0 +1,14 @@
+mat-icon {
+  color: #666;
+}
+
+span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  column-gap: 0.5em;
+}
+
+.mat-icon {
+  cursor: pointer;
+}
