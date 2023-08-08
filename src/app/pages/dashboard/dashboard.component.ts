@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActionsRendererComponent } from '../../components/grids/actions-renderer/actions-renderer.component';
 import { ColDef } from 'ag-grid-community';
 import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
@@ -12,12 +13,13 @@ import { CandidateService } from '../../core/services/candidate.service';
 import { PositionService } from '../../core/services/position.service';
 import { ProfileLinkComponent } from '../../components/grids/profile-link/profile-link.component';
 import { CountryComponent } from '../../components/grids/country/country.component';
-import { map, tap } from 'rxjs';
+import { DialogMessageComponent } from '../../components/dialog/dialog-message/dialog-message.component';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatTableModule, ActionsRendererComponent, AgGridModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDialogModule, FormsModule, ReactiveFormsModule, MatTableModule, ActionsRendererComponent, AgGridModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -25,6 +27,7 @@ export class DashboardComponent {
   
   private readonly _candidateService = inject(CandidateService);
   private readonly _positionService = inject(PositionService);
+  private readonly _dialog = inject(MatDialog);
   
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
   
@@ -107,9 +110,18 @@ export class DashboardComponent {
   }
 
   commentsCandidate(data: any) {
-    // TODO: implement this
     console.log('commentsCandidate', data)
-  }
+    const dialogRef = this._dialog.open(DialogMessageComponent, {
+      data: { comment: data.message }
+    });
+
+    dialogRef.afterClosed().pipe(
+      switchMap((message: string) => {
+        const { name, status } = data;
+        return this._candidateService.updateMessage({ name, message, status });
+      })
+    ).subscribe(resp => console.log('update message', resp));
+  } 
 
   scheduleCandidate(data: any) {
     window.open(`https://www.google.com/calendar/render?

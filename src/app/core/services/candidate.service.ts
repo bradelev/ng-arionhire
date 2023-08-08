@@ -22,4 +22,13 @@ export class CandidateService {
       status
     })
   }
+
+  updateMessage(candidateData: any) {
+    const { name, message, status } = candidateData;
+    return this._http.post<any>(`${APP_CONSTANT.apiRootUrl}/update-status`, {
+      name,
+      message,
+      status
+    })
+  }
 }
