@@ -1,6 +1,6 @@
 <span>
   <mat-icon
-    *ngIf="params?.data?.status === 'said yes (interview)'"
+    *ngIf="params?.data.status === 'said yes (interview)'"
     (click)="handlerClick('schedule')"
     aria-hidden="false"
     fontIcon="calendar_month"
@@ -10,10 +10,10 @@
   (click)="handlerClick('info')"
     aria-hidden="false"
     fontIcon="info"
-    matTooltip="Info"
+    [matTooltip]="params.data.message"
   ></mat-icon>
   <mat-icon
-    *ngIf="params?.data?.status !== 'said yes (interview)' && params?.data?.status !== 'discarded candidate'"
+    *ngIf="params?.data.status !== 'said yes (interview)' && params?.data?.status !== 'discarded candidate'"
     (click)="handlerClick('delete')"
     aria-hidden="false"
     fontIcon="delete"
