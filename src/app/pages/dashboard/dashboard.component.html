@@ -3,9 +3,11 @@
   <form>
     <mat-form-field>
       <mat-label>Select Open Position</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let position of positions$ | async" [value]="position.id">{{ position.name }}</mat-option>
-      </mat-select>
+      <select matNativeControl (change)="selectPosition($event)">
+        <option
+          *ngFor="let position of positions$ | async"
+          [value]="position.name">{{ position.name }}</option>
+      </select>
     </mat-form-field>
   </form>
   

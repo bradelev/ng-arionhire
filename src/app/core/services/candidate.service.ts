@@ -11,7 +11,8 @@ export class CandidateService {
   private readonly _http = inject(HttpClient);
 
   getCandidates(position = ''): Observable<any[]> {
-    return this._http.get<any>(`${APP_CONSTANT.apiRootUrl}/get-candidate`);
+    const queryParams = position ? `&position=${position}` : '';
+    return this._http.get<any>(`${APP_CONSTANT.apiRootUrl}/get-candidate${queryParams}`);
   }
 
   updateStatus(candidateData: any) {
