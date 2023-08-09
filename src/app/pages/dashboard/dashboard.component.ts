@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActionsRendererComponent } from '../../components/grids/actions-renderer/actions-renderer.component';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
 import { CandidateService } from '../../core/services/candidate.service';
 import { PositionService } from '../../core/services/position.service';
@@ -30,6 +30,7 @@ export class DashboardComponent {
   private readonly _dialog = inject(MatDialog);
   
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+  private gridApi!: GridApi<any>;
   
   context = { dashboard: this };
   columnDefs: ColDef[] = [
@@ -93,7 +94,7 @@ export class DashboardComponent {
         this.deleteCandidate(params.data)
         break;
       case 'info':
-        this.commentsCandidate(params.data)
+        this.commentsCandidate(params)
         break;
       case 'schedule':
         this.scheduleCandidate(params.data)
@@ -109,18 +110,20 @@ export class DashboardComponent {
     this._candidateService.updateStatus({ name, status }).subscribe(resp => console.log('update status', resp))
   }
 
-  commentsCandidate(data: any) {
-    console.log('commentsCandidate', data)
+  commentsCandidate(rowData: any) {
     const dialogRef = this._dialog.open(DialogMessageComponent, {
-      data: { comment: data.message }
+      data: { comment: rowData.data.message }
     });
+    const { name, status } = rowData.data;
 
     dialogRef.afterClosed().pipe(
       switchMap((message: string) => {
-        const { name, status } = data;
         return this._candidateService.updateMessage({ name, message, status });
       })
-    ).subscribe(resp => console.log('update message', resp));
+    ).subscribe(resp => {
+      const rowNode = this.gridApi.getRowNode(rowData.node.id)
+      rowNode?.setData({ ...rowData.data, message: resp.message})
+    });
   } 
 
   scheduleCandidate(data: any) {
@@ -132,7 +135,14 @@ export class DashboardComponent {
 
   statusHandler(rowData: any) {
     const { name, status } = rowData.data;
-    this._candidateService.updateStatus({ name, status }).subscribe(resp => console.log('update status', resp))
+    this._candidateService.updateStatus({ name, status }).subscribe(resp => {
+      const rowNode = this.gridApi.getRowNode(rowData.node.id)
+      rowNode?.setDataValue('status', status);
+    })
+  }
+
+  onGridReady(params: GridReadyEvent<any>) {
+    this.gridApi = params.api;
   }
 
   convertToYYMMDD(d: any) {
