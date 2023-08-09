@@ -18,6 +18,7 @@
     class="ag-theme-alpine"
     [context]="context"
     [rowData]="rowData$ | async"
-    [columnDefs]="columnDefs">
-  </ag-grid-angular>
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+  ></ag-grid-angular>
 </div>
