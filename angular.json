@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng-arionhire:build:production"
+              "buildTarget": "ng-arionhire:build:production"
             },
             "development": {
-              "browserTarget": "ng-arionhire:build:development"
+              "buildTarget": "ng-arionhire:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-arionhire:build"
+            "buildTarget": "ng-arionhire:build"
           }
         },
         "test": {
