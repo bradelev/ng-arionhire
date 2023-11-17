@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,15 +6,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ActionsRendererComponent } from '../../components/grids/actions-renderer/actions-renderer.component';
-import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActionsRendererComponent } from '../../components/grids/actions-renderer/actions-renderer.component';
 import { CandidateService } from '../../core/services/candidate.service';
 import { PositionService } from '../../core/services/position.service';
 import { ProfileLinkComponent } from '../../components/grids/profile-link/profile-link.component';
 import { CountryComponent } from '../../components/grids/country/country.component';
 import { DialogMessageComponent } from '../../components/dialog/dialog-message/dialog-message.component';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -80,12 +81,12 @@ export class DashboardComponent {
     { field: 'actions', cellRenderer: ActionsRendererComponent },
   ];
 
-  rowData$ = this._candidateService.getCandidates();
-  positions$ = this._positionService.getPositions();
+  rowData = toSignal(this._candidateService.getCandidates());
+  positions = toSignal(this._positionService.getPositions());
 
   selectPosition(event: Event) {
     const selected = (event.target as HTMLSelectElement).value;
-    this.rowData$ = this._candidateService.getCandidates(selected)
+    this.rowData = toSignal(this._candidateService.getCandidates(selected));
   }
 
   handlerActions(action = '', params: any) {
