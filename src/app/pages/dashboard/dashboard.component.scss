@@ -1,5 +1,88 @@
-.container {
+.dashboard-container {
   margin: 0 auto;
   padding: 1rem;
   max-width: 1280px;
 }
+.main-content {
+  flex-grow: 1;
+  background: #ecf0f1;
+}
+
+.header {
+  background: #3498db;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+.candidates {
+  &-section {
+    padding: 20px;
+  }
+  &-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px 16px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      &:first-child {
+        border-top-left-radius: 8px;
+      }
+      &:last-child {
+        text-align: right;
+        border-top-right-radius: 8px;
+      }
+    }
+
+    th {
+      background-color: #3f5ecf;
+      color: white;
+      padding: 16px;
+    }
+    tr {
+      &:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      &:hover {
+        background-color: #d0e4f1;
+      }
+    }
+    .action-btn {
+      padding: 5px 10px;
+      margin-right: 8px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .action-btn.edit {
+      background-color: #f1c40f;
+    }
+
+    .action-btn.schedule {
+      background-color: #3498db;
+    }
+    
+    .action-btn.delete {
+      background-color: #e74c3c;
+    }
+    
+    .action-btn i {
+      font-size: 16px;
+    }
+    
+    .action-btn:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+
+

@@ -1,3 +1,70 @@
-mat-sidenav-content {
-  min-height: 100vh;
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+}
+.sidebar {
+  min-width: 250px;
+  width: 250px;
+  background-color: #fff;
+  height: 100vh;
+}
+.main {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.02)
+}
+
+.logo-section {
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  justify-content: flex-start;
+
+  .title {
+    font-size: 1.12rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+  .logo {
+    width: 24px;
+  }
+  .separator {
+    border-left: 2px solid #ccc;
+    height: 20px;
+    padding: 0 4px;
+    margin-left: 8px;
+  }
+}
+
+.sidebar-nav .nav-list {
+  list-style: none;
+  padding: 16px 0;
+  margin: 0;
+}
+
+.sidebar-nav .nav-item {
+  margin: 2px 16px;
+}
+
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.sidebar-nav .nav-link i {
+  margin-right: 10px;
+}
+
+.sidebar-nav .nav-item.active .nav-link,
+.sidebar-nav .nav-link:hover {
+  border-radius: 8px;
+  background-color: #e2e9fd;
+  color: #3f5ecf;
+  cursor: pointer;
 }

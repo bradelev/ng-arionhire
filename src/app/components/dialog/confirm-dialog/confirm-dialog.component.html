@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Delete {{ data.entity }}</h1>
+<div mat-dialog-content>
+  The {{ data.entity }} will be deleted, please press OK to confirm.
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>No</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+  
+</div>

@@ -1,15 +1,28 @@
-<mat-toolbar>
-  <button mat-icon-button (click)="snav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Arion Hiring Dashboard</span>
-</mat-toolbar>
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #snav mode="side" opened>
-    <mat-nav-list><a mat-list-item routerLink="/">Dashboard</a></mat-nav-list>
-    <mat-nav-list><a mat-list-item routerLink="/job-description">Job Descriptions</a></mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
+<div class="container">
+  <aside class="sidebar">
+    <div class="logo-section">
+      <img class="logo" src="https://www.arionkoder.com/_next/static/media/favicon.3119321d.svg" alt="">
+      <span class="separator"></span>
+      <h1 class="title">Hiring dashboard</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+        <li class="nav-item" routerLinkActive="active">
+          <a [routerLink]="'/dashboard'" class="nav-link">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a [routerLink]="'/job-description'" class="nav-link">
+            <i class="fas fa-briefcase"></i>
+            <span>Job descriptions</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <div class="main">
     <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+</div>

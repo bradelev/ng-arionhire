@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abacritt/angularx-social-login": "^2.1.0",
     "@angular/animations": "^17.0.3",
     "@angular/cdk": "^16.1.4",
     "@angular/common": "^17.0.3",
@@ -20,6 +21,7 @@
     "@angular/platform-browser": "^17.0.3",
     "@angular/platform-browser-dynamic": "^17.0.3",
     "@angular/router": "^17.0.3",
+    "@tinymce/tinymce-angular": "^7.0.0",
     "ag-grid-angular": "^30.0.3",
     "ag-grid-community": "^30.0.3",
     "ag-grid-enterprise": "^30.0.3",

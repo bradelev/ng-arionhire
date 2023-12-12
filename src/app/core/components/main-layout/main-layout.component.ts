@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-main-layout',
   standalone: true,
   imports: [RouterOutlet, ToolbarComponent],
   template: `
-    <router-outlet></router-outlet>
+    <app-toolbar></app-toolbar>
+
   `
 })
-export class AppComponent {
-  title = 'ng-arionhire';
+export class MainLayoutComponent {
+
 }
