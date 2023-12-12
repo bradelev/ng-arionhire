@@ -1,1 +1,63 @@
-<p>job-description works!</p>
+<div class="jobDescription-container">
+  <h1>Job Descriptions</h1>
+
+  @if (openEditor) {
+    @defer {
+      <form [formGroup]="jobDescriptionForm" (ngSubmit)="save()">
+        <div class="form-container">
+          <div class="form-control">
+            <label for="title">Title: </label>
+            <input id="title" type="text" formControlName="name">
+          </div>
+          <div class="form-control">
+            <label for="title">Description: </label>
+            <textarea id="description" type="text" formControlName="description" placeholder="Your message" rows="20"></textarea>
+          </div>
+          <div class="form-control">
+            <button mat-raised-button>Cancel</button>
+            <button mat-raised-button color="primary" [disabled]="!jobDescriptionForm.valid">Save</button>
+          </div>
+        </div>
+      </form>
+    } @placeholder (minimum 500ms) {
+      <p>Loading...</p>
+    }
+  } @else {
+    <div class="form-control add-button">
+      <button mat-raised-button color="primary" (click)="add()">Add Job Description</button>
+    </div>
+  }
+
+  <table class="position-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      @if ((positions$ | async)?.length) {
+        @for (position of positions$ | async; track position.id) {
+          <tr>
+            <td
+              matTooltip="{{ position.description.slice(0,100) }}{{ position.description.length > 100 ? '...' : ''}}"  
+            >{{ position.name }}</td>
+            <td>
+              <button class="action-btn edit" (click)="edit(position)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="action-btn delete" (click)="delete(position)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      } @else {
+        <tr>
+          <td colspan="2" style="text-align: center; height: 72px;">No Data to Show</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

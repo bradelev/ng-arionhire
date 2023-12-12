@@ -1,27 +1,61 @@
-<div class="container">
+<div class="dashboard-container">
 
-  <form>
-    <mat-form-field>
-      <mat-label>Select Open Position</mat-label>
-      <select matNativeControl (change)="selectPosition($event)">
-        @for(position of positions(); track position) {
-          <option [value]="position.name">{{ position.name }}</option>
-        }
-      </select>
-    </mat-form-field>
+  <form style="display: flex; justify-content: space-between; align-items: center;">
+    <h1>Candidates</h1>
   </form>
   @defer {
-    <h1>Candidates</h1>
-    
-    <ag-grid-angular
-      style="width: 1200px; height: 350px;"
-      class="ag-theme-alpine"
-      [context]="context"
-      [rowData]="rowData()"
-      [columnDefs]="columnDefs"
-      (gridReady)="onGridReady($event)"
-    ></ag-grid-angular>
-  } @placeholder (minimum 1000ms) {
+    <table class="candidates-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Country</th>
+          <th>Years of experience</th>
+          <th>Company</th>
+          <th>Status</th>
+          <th>Last updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if ((rowData | async)?.length) {
+          @for (candidate of rowData | async; track candidate.id) {
+            <tr>
+              <td>
+                @if (candidate.url) {
+                  <a [href]="candidate.url" target="_blank" matTooltip="Linkedin Profile">
+                    {{ candidate.name }}
+                  </a>
+                } @else {
+                  {{ candidate.name }}
+                }
+
+              </td>
+              <td>{{ candidate.country }}</td>
+              <td>{{ candidate.years_experience }}</td>
+              <td>{{ candidate.company }}</td>
+              <td>{{ candidate.status }}</td>
+              <td>{{ candidate.last_update | date }}</td>
+              <td>
+                <button class="action-btn edit" (click)="commentsCandidate(candidate)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn schedule" (click)="scheduleCandidate(candidate)">
+                  <i class="far fa-calendar-alt"></i>
+                </button>
+                <button class="action-btn delete" (click)="delete(candidate)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        } @else {
+          <tr>
+            <td colspan="7" style="text-align: center; height: 72px;">No Data to Show</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @placeholder (minimum 500ms) {
     <p>Loading...</p>
   }
 </div>

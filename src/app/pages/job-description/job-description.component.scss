@@ -1,0 +1,109 @@
+.jobDescription-container {
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 1280px;
+}
+.form-container {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  max-width: 480px;
+  margin: 16px auto;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  input,
+  textarea {
+    width: calc(100% - 16px);
+    padding: 12px 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+.add-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.position {
+  &-section {
+    padding: 20px;
+  }
+  &-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px 16px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      &:first-child {
+        border-top-left-radius: 8px;
+      }
+      &:last-child {
+        text-align: right;
+        border-top-right-radius: 8px;
+      }
+    }
+
+    th {
+      background-color: #3f5ecf;
+      color: white;
+      padding: 16px;
+    }
+    tr {
+      &:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      &:hover {
+        background-color: #d0e4f1;
+      }
+    }
+    .action-btn {
+      padding: 5px 10px;
+      margin-right: 8px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .action-btn.edit {
+      background-color: #f1c40f;
+    }
+    
+    .action-btn.delete {
+      background-color: #e74c3c;
+    }
+    
+    .action-btn i {
+      font-size: 16px;
+    }
+    
+    .action-btn:hover {
+      opacity: 0.8;
+    }
+  }
+}
